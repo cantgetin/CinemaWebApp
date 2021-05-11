@@ -1,0 +1,143 @@
+﻿@model ASPcinema.Models.SessionsPageModel
+
+
+<h2>@ViewBag.Title</h2>
+@section Scripts
+{
+    <link href="~/Content/style1.css" rel="stylesheet" />
+}
+<!-- Бюджетный вариант
+<a href="Page1">1</a>
+<a href="Page2">2</a>
+<a href="Page3">3</a>
+<a href="Page4">4</a>
+<a href="Page5">5</a>
+ -->
+<!-- Продвинутый вариант -->
+
+
+@if (User.IsInRole("admin"))
+{
+    <div style="margin-bottom: 50px;">
+        @using (Html.BeginForm("Add", "Film"))
+        {
+            <div class="col-lg-2 col-sm-6">
+                <button type="submit" class="btn btn-success pull-left" style="width:150px;">
+                    Добавить фильм
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                </button>
+            </div>
+        }
+    </div>
+}
+
+
+
+@foreach (var item in Model.Films)
+{
+    <div class="panel-primary">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-2 col-sm-6">
+                    <img src="~/Content/@item.ImagePath" width="150" />
+                </div>
+
+                <div style="display: block;">
+                    <div class="col-lg-10 col-sm-6" id="FilmTitleAndEditBtn">
+                        <div id="FilmTitle">
+
+                            @Html.ActionLink(
+                             item.Title.Split(',').First(),
+                             "Details",
+                             new
+                             {
+                                 @id = item.FilmID
+                             }
+                           )
+
+                        </div>
+                        <div class="agerating" id="filmAgeRating"
+                             style=" font-size:16px;
+                        border: solid 2px;
+                        border-radius: 50%;
+                        height: 34px;
+                        width: 34px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-left: 20px;
+                        margin-top: 0px;">
+                            <text>@item.AgeRating.Title</text>
+                        </div>
+                    </div>
+                    
+                        <div class="col-lg-10 col-sm-6" id="filmThings" style="float: left; width: 100px;">
+                            <div class="country" id="filmThingsItem"><text>@item.Country</text></div>
+                            <div class="fgenre" id="filmThingsItem"><text>@item.Genre.Title</text></div>
+                            <div class="timelength" id="filmThingsItem"><text>@item.TimeLength</text></div>
+                        </div>
+                        <div id="FilmEditBtn" style="height:30px; display: block; float:right">
+                            @if (User.IsInRole("admin"))
+                            {
+                                using (Html.BeginForm("Edit", "Film",
+                                new
+                                {
+                                    @filmId = item.FilmID,
+                                }))
+                                {
+                                    <div class="col-lg-10 col-sm-6">
+                                        <button type="submit" class="btn btn-warning pull-right">
+                                            Изменить фильм
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                    </div>
+                                }
+
+                                using (Html.BeginForm("Delete", "Film",
+                                new
+                                {
+                                    @filmId = item.FilmID,
+                                }))
+                                {
+                                    <div class="col-lg-10 col-sm-6" style="margin-top:10px;">
+                                        <button type="submit" class="btn btn-danger pull-right">
+                                            Удалить фильм
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                    
+
+                </div>
+                    
+
+                
+                <div class="col-lg-10 col-sm-6" id="sessionsToday" style="margin-top: 24px;">
+                    <text>Сеансы на сегодня, @DateTime.UtcNow.ToString("dd.MM.yyyy")</text>
+                </div>
+                <div class="col-lg-10 col-sm-6" id="sessionButtons">
+                    @foreach (var item1 in Model.FilmSessions.Where(f => f.Film.FilmID == item.FilmID).Distinct()
+                                .OrderBy(d => d.SessionDateTime))
+                    {
+                        <div class="btnBuy">
+                            <a href="/Film/Buy?filmID=@item.FilmID&sessionID=@item1.FilmSessionID">
+                                <span class="sessionTime">@item1.SessionDateTime.TimeOfDay.ToString().Substring(0, 5)</span>
+                                <span class="price">@item1.SesstionTickets.ElementAt(0).Price ₽</span>
+                                <span class="hall">@item1.CinemaHall.Title</span>
+                            </a>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <br />
+}
+
+<br />

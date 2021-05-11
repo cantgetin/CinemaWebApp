@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModelCinema.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelCinemaStoreContainer">
+    <EntitySet Name="FilmSet" EntityType="ModelCinema.Store.FilmSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GenreSet" EntityType="ModelCinema.Store.GenreSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AgeRatingSet" EntityType="ModelCinema.Store.AgeRatingSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CinemaHallSet" EntityType="ModelCinema.Store.CinemaHallSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SeatSet" EntityType="ModelCinema.Store.SeatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilmSessionSet" EntityType="ModelCinema.Store.FilmSessionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SeatTicketSet" EntityType="ModelCinema.Store.SeatTicketSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FilmGenre" Association="ModelCinema.Store.FilmGenre">
+      <End Role="Film" EntitySet="FilmSet" />
+      <End Role="Genre" EntitySet="GenreSet" />
+    </AssociationSet>
+    <AssociationSet Name="FilmAgeRating" Association="ModelCinema.Store.FilmAgeRating">
+      <End Role="Film" EntitySet="FilmSet" />
+      <End Role="AgeRating" EntitySet="AgeRatingSet" />
+    </AssociationSet>
+    <AssociationSet Name="CinemaHallSeat" Association="ModelCinema.Store.CinemaHallSeat">
+      <End Role="CinemaHall" EntitySet="CinemaHallSet" />
+      <End Role="Seat" EntitySet="SeatSet" />
+    </AssociationSet>
+    <AssociationSet Name="FilmFilmSession" Association="ModelCinema.Store.FilmFilmSession">
+      <End Role="Film" EntitySet="FilmSet" />
+      <End Role="FilmSession" EntitySet="FilmSessionSet" />
+    </AssociationSet>
+    <AssociationSet Name="FilmSessionCinemaHall" Association="ModelCinema.Store.FilmSessionCinemaHall">
+      <End Role="FilmSession" EntitySet="FilmSessionSet" />
+      <End Role="CinemaHall" EntitySet="CinemaHallSet" />
+    </AssociationSet>
+    <AssociationSet Name="SeatTicketSeat" Association="ModelCinema.Store.SeatTicketSeat">
+      <End Role="SeatTicket" EntitySet="SeatTicketSet" />
+      <End Role="Seat" EntitySet="SeatSet" />
+    </AssociationSet>
+    <AssociationSet Name="SeatTicketFilmSession" Association="ModelCinema.Store.SeatTicketFilmSession">
+      <End Role="SeatTicket" EntitySet="SeatTicketSet" />
+      <End Role="FilmSession" EntitySet="FilmSessionSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="FilmSet">
+    <Key>
+      <PropertyRef Name="FilmID" />
+    </Key>
+    <Property Name="FilmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeLength" Type="time" Nullable="false" />
+    <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MoreGenres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Actors" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Producer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KinopoiskLink" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Genre_GenreID" Type="int" Nullable="false" />
+    <Property Name="AgeRating_AgeRatingID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GenreSet">
+    <Key>
+      <PropertyRef Name="GenreID" />
+    </Key>
+    <Property Name="GenreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AgeRatingSet">
+    <Key>
+      <PropertyRef Name="AgeRatingID" />
+    </Key>
+    <Property Name="AgeRatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CinemaHallSet">
+    <Key>
+      <PropertyRef Name="CinemaHallID" />
+    </Key>
+    <Property Name="CinemaHallID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumberOfSeats" Type="int" Nullable="false" />
+    <Property Name="IsVIP" Type="bit" Nullable="false" />
+    <Property Name="Is3D" Type="bit" Nullable="false" />
+    <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeatSet">
+    <Key>
+      <PropertyRef Name="SeatID" />
+    </Key>
+    <Property Name="SeatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SeatNumber" Type="int" Nullable="false" />
+    <Property Name="RowNumber" Type="int" Nullable="false" />
+    <Property Name="Occupied" Type="bit" Nullable="false" />
+    <Property Name="CinemaHall_CinemaHallID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FilmSessionSet">
+    <Key>
+      <PropertyRef Name="FilmSessionID" />
+    </Key>
+    <Property Name="FilmSessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SessionDateTime" Type="datetime" Nullable="false" />
+    <Property Name="TicketPrice" Type="int" Nullable="false" />
+    <Property Name="Film_FilmID" Type="int" Nullable="false" />
+    <Property Name="CinemaHall_CinemaHallID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeatTicketSet">
+    <Key>
+      <PropertyRef Name="SeatTicketID" />
+    </Key>
+    <Property Name="SeatTicketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ended" Type="bit" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="Bought" Type="bit" Nullable="false" />
+    <Property Name="Seat_SeatID" Type="int" Nullable="false" />
+    <Property Name="FilmSession_FilmSessionID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FilmGenre">
+    <End Role="Film" Type="ModelCinema.Store.FilmSet" Multiplicity="*" />
+    <End Role="Genre" Type="ModelCinema.Store.GenreSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreID" />
+      </Principal>
+      <Dependent Role="Film">
+        <PropertyRef Name="Genre_GenreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FilmAgeRating">
+    <End Role="Film" Type="ModelCinema.Store.FilmSet" Multiplicity="*" />
+    <End Role="AgeRating" Type="ModelCinema.Store.AgeRatingSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AgeRating">
+        <PropertyRef Name="AgeRatingID" />
+      </Principal>
+      <Dependent Role="Film">
+        <PropertyRef Name="AgeRating_AgeRatingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CinemaHallSeat">
+    <End Role="CinemaHall" Type="ModelCinema.Store.CinemaHallSet" Multiplicity="1" />
+    <End Role="Seat" Type="ModelCinema.Store.SeatSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CinemaHall">
+        <PropertyRef Name="CinemaHallID" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="CinemaHall_CinemaHallID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FilmFilmSession">
+    <End Role="Film" Type="ModelCinema.Store.FilmSet" Multiplicity="1" />
+    <End Role="FilmSession" Type="ModelCinema.Store.FilmSessionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="FilmID" />
+      </Principal>
+      <Dependent Role="FilmSession">
+        <PropertyRef Name="Film_FilmID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FilmSessionCinemaHall">
+    <End Role="FilmSession" Type="ModelCinema.Store.FilmSessionSet" Multiplicity="*" />
+    <End Role="CinemaHall" Type="ModelCinema.Store.CinemaHallSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CinemaHall">
+        <PropertyRef Name="CinemaHallID" />
+      </Principal>
+      <Dependent Role="FilmSession">
+        <PropertyRef Name="CinemaHall_CinemaHallID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SeatTicketSeat">
+    <End Role="SeatTicket" Type="ModelCinema.Store.SeatTicketSet" Multiplicity="*" />
+    <End Role="Seat" Type="ModelCinema.Store.SeatSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Seat">
+        <PropertyRef Name="SeatID" />
+      </Principal>
+      <Dependent Role="SeatTicket">
+        <PropertyRef Name="Seat_SeatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SeatTicketFilmSession">
+    <End Role="SeatTicket" Type="ModelCinema.Store.SeatTicketSet" Multiplicity="*" />
+    <End Role="FilmSession" Type="ModelCinema.Store.FilmSessionSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="FilmSession">
+        <PropertyRef Name="FilmSessionID" />
+      </Principal>
+      <Dependent Role="SeatTicket">
+        <PropertyRef Name="FilmSession_FilmSessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelCinema" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelCinemaContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FilmSet" EntityType="ModelCinema.Film" />
+          <EntitySet Name="GenreSet" EntityType="ModelCinema.Genre" />
+          <EntitySet Name="AgeRatingSet" EntityType="ModelCinema.AgeRating" />
+          <AssociationSet Name="FilmGenre" Association="ModelCinema.FilmGenre">
+            <End Role="Film" EntitySet="FilmSet" />
+            <End Role="Genre" EntitySet="GenreSet" />
+          </AssociationSet>
+          <AssociationSet Name="FilmAgeRating" Association="ModelCinema.FilmAgeRating">
+            <End Role="Film" EntitySet="FilmSet" />
+            <End Role="AgeRating" EntitySet="AgeRatingSet" />
+          </AssociationSet>
+          <EntitySet Name="CinemaHallSet" EntityType="ModelCinema.CinemaHall" />
+          <EntitySet Name="SeatSet" EntityType="ModelCinema.Seat" />
+          <AssociationSet Name="CinemaHallSeat" Association="ModelCinema.CinemaHallSeat">
+            <End Role="CinemaHall" EntitySet="CinemaHallSet" />
+            <End Role="Seat" EntitySet="SeatSet" />
+          </AssociationSet>
+          <EntitySet Name="FilmSessionSet" EntityType="ModelCinema.FilmSession" />
+          <AssociationSet Name="FilmFilmSession" Association="ModelCinema.FilmFilmSession">
+            <End Role="Film" EntitySet="FilmSet" />
+            <End Role="FilmSession" EntitySet="FilmSessionSet" />
+          </AssociationSet>
+          <AssociationSet Name="FilmSessionCinemaHall" Association="ModelCinema.FilmSessionCinemaHall">
+            <End Role="FilmSession" EntitySet="FilmSessionSet" />
+            <End Role="CinemaHall" EntitySet="CinemaHallSet" />
+          </AssociationSet>
+          <EntitySet Name="SeatTicketSet" EntityType="ModelCinema.SeatTicket" />
+          <AssociationSet Name="SeatTicketSeat" Association="ModelCinema.SeatTicketSeat">
+            <End Role="SeatTicket" EntitySet="SeatTicketSet" />
+            <End Role="Seat" EntitySet="SeatSet" />
+          </AssociationSet>
+          <AssociationSet Name="SeatTicketFilmSession" Association="ModelCinema.SeatTicketFilmSession">
+            <End Role="SeatTicket" EntitySet="SeatTicketSet" />
+            <End Role="FilmSession" EntitySet="FilmSessionSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="FilmID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" />
+          <Property Name="TimeLength" Type="Time" Nullable="false" />
+          <Property Name="ImagePath" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="MoreGenres" Type="String" Nullable="false" />
+          <Property Name="Actors" Type="String" Nullable="false" />
+          <NavigationProperty Name="Genre" Relationship="ModelCinema.FilmGenre" FromRole="Film" ToRole="Genre" />
+          <NavigationProperty Name="AgeRating" Relationship="ModelCinema.FilmAgeRating" FromRole="Film" ToRole="AgeRating" />
+          <NavigationProperty Name="FilmSession" Relationship="ModelCinema.FilmFilmSession" FromRole="Film" ToRole="FilmSession" />
+          <Property Name="Producer" Type="String" Nullable="false" />
+          <Property Name="KinopoiskLink" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <NavigationProperty Name="FilmsOfThisGenre" Relationship="ModelCinema.FilmGenre" FromRole="Genre" ToRole="Film" />
+        </EntityType>
+        <EntityType Name="AgeRating">
+          <Key>
+            <PropertyRef Name="AgeRatingID" />
+          </Key>
+          <Property Name="AgeRatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <NavigationProperty Name="FilmsOfThisAgeRating" Relationship="ModelCinema.FilmAgeRating" FromRole="AgeRating" ToRole="Film" />
+        </EntityType>
+        <Association Name="FilmGenre">
+          <End Type="ModelCinema.Film" Role="Film" Multiplicity="*" />
+          <End Type="ModelCinema.Genre" Role="Genre" Multiplicity="1" />
+        </Association>
+        <Association Name="FilmAgeRating">
+          <End Type="ModelCinema.Film" Role="Film" Multiplicity="*" />
+          <End Type="ModelCinema.AgeRating" Role="AgeRating" Multiplicity="1" />
+        </Association>
+        <EntityType Name="CinemaHall">
+          <Key>
+            <PropertyRef Name="CinemaHallID" />
+          </Key>
+          <Property Name="CinemaHallID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="NumberOfSeats" Type="Int32" Nullable="false" />
+          <Property Name="IsVIP" Type="Boolean" Nullable="false" />
+          <Property Name="Is3D" Type="Boolean" Nullable="false" />
+          <Property Name="ImagePath" Type="String" Nullable="false" />
+          <NavigationProperty Name="SeatsOfCinemaHall" Relationship="ModelCinema.CinemaHallSeat" FromRole="CinemaHall" ToRole="Seat" />
+          <NavigationProperty Name="FilmSession" Relationship="ModelCinema.FilmSessionCinemaHall" FromRole="CinemaHall" ToRole="FilmSession" />
+        </EntityType>
+        <EntityType Name="Seat">
+          <Key>
+            <PropertyRef Name="SeatID" />
+          </Key>
+          <Property Name="SeatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SeatNumber" Type="Int32" Nullable="false" />
+          <Property Name="RowNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CinemaHall" Relationship="ModelCinema.CinemaHallSeat" FromRole="Seat" ToRole="CinemaHall" />
+          <NavigationProperty Name="SeatTicket" Relationship="ModelCinema.SeatTicketSeat" FromRole="Seat" ToRole="SeatTicket" />
+          <Property Name="Occupied" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="CinemaHallSeat">
+          <End Type="ModelCinema.CinemaHall" Role="CinemaHall" Multiplicity="1" />
+          <End Type="ModelCinema.Seat" Role="Seat" Multiplicity="*" />
+        </Association>
+        <EntityType Name="FilmSession">
+          <Key>
+            <PropertyRef Name="FilmSessionID" />
+          </Key>
+          <Property Name="FilmSessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Film" Relationship="ModelCinema.FilmFilmSession" FromRole="FilmSession" ToRole="Film" />
+          <NavigationProperty Name="CinemaHall" Relationship="ModelCinema.FilmSessionCinemaHall" FromRole="FilmSession" ToRole="CinemaHall" />
+          <NavigationProperty Name="SesstionTickets" Relationship="ModelCinema.SeatTicketFilmSession" FromRole="FilmSession" ToRole="SeatTicket" />
+          <Property Name="TicketPrice" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FilmFilmSession">
+          <End Type="ModelCinema.Film" Role="Film" Multiplicity="1" />
+          <End Type="ModelCinema.FilmSession" Role="FilmSession" Multiplicity="*" />
+        </Association>
+        <Association Name="FilmSessionCinemaHall">
+          <End Type="ModelCinema.FilmSession" Role="FilmSession" Multiplicity="*" />
+          <End Type="ModelCinema.CinemaHall" Role="CinemaHall" Multiplicity="1" />
+        </Association>
+        <EntityType Name="SeatTicket">
+          <Key>
+            <PropertyRef Name="SeatTicketID" />
+          </Key>
+          <Property Name="SeatTicketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ended" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Seat" Relationship="ModelCinema.SeatTicketSeat" FromRole="SeatTicket" ToRole="Seat" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Bought" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FilmSession" Relationship="ModelCinema.SeatTicketFilmSession" FromRole="SeatTicket" ToRole="FilmSession" />
+        </EntityType>
+        <Association Name="SeatTicketSeat">
+          <End Type="ModelCinema.SeatTicket" Role="SeatTicket" Multiplicity="*" />
+          <End Type="ModelCinema.Seat" Role="Seat" Multiplicity="1" />
+        </Association>
+        <Association Name="SeatTicketFilmSession">
+          <End Type="ModelCinema.SeatTicket" Role="SeatTicket" Multiplicity="*" />
+          <End Type="ModelCinema.FilmSession" Role="FilmSession" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelCinemaStoreContainer" CdmEntityContainer="ModelCinemaContainer">
+    <EntitySetMapping Name="FilmSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.Film)">
+        <MappingFragment StoreEntitySet="FilmSet">
+          <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="TimeLength" ColumnName="TimeLength" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MoreGenres" ColumnName="MoreGenres" />
+          <ScalarProperty Name="Actors" ColumnName="Actors" />
+          <ScalarProperty Name="Producer" ColumnName="Producer" />
+          <ScalarProperty Name="KinopoiskLink" ColumnName="KinopoiskLink" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GenreSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.Genre)">
+        <MappingFragment StoreEntitySet="GenreSet">
+          <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AgeRatingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.AgeRating)">
+        <MappingFragment StoreEntitySet="AgeRatingSet">
+          <ScalarProperty Name="AgeRatingID" ColumnName="AgeRatingID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CinemaHallSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.CinemaHall)">
+        <MappingFragment StoreEntitySet="CinemaHallSet">
+          <ScalarProperty Name="CinemaHallID" ColumnName="CinemaHallID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="NumberOfSeats" ColumnName="NumberOfSeats" />
+          <ScalarProperty Name="IsVIP" ColumnName="IsVIP" />
+          <ScalarProperty Name="Is3D" ColumnName="Is3D" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeatSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.Seat)">
+        <MappingFragment StoreEntitySet="SeatSet">
+          <ScalarProperty Name="SeatID" ColumnName="SeatID" />
+          <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
+          <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+          <ScalarProperty Name="Occupied" ColumnName="Occupied" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FilmSessionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.FilmSession)">
+        <MappingFragment StoreEntitySet="FilmSessionSet">
+          <ScalarProperty Name="FilmSessionID" ColumnName="FilmSessionID" />
+          <ScalarProperty Name="SessionDateTime" ColumnName="SessionDateTime" />
+          <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeatTicketSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelCinema.SeatTicket)">
+        <MappingFragment StoreEntitySet="SeatTicketSet">
+          <ScalarProperty Name="SeatTicketID" ColumnName="SeatTicketID" />
+          <ScalarProperty Name="Ended" ColumnName="Ended" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Bought" ColumnName="Bought" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FilmGenre" TypeName="ModelCinema.FilmGenre" StoreEntitySet="FilmSet">
+      <EndProperty Name="Genre">
+        <ScalarProperty Name="GenreID" ColumnName="Genre_GenreID" />
+      </EndProperty>
+      <EndProperty Name="Film">
+        <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FilmAgeRating" TypeName="ModelCinema.FilmAgeRating" StoreEntitySet="FilmSet">
+      <EndProperty Name="AgeRating">
+        <ScalarProperty Name="AgeRatingID" ColumnName="AgeRating_AgeRatingID" />
+      </EndProperty>
+      <EndProperty Name="Film">
+        <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CinemaHallSeat" TypeName="ModelCinema.CinemaHallSeat" StoreEntitySet="SeatSet">
+      <EndProperty Name="CinemaHall">
+        <ScalarProperty Name="CinemaHallID" ColumnName="CinemaHall_CinemaHallID" />
+      </EndProperty>
+      <EndProperty Name="Seat">
+        <ScalarProperty Name="SeatID" ColumnName="SeatID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FilmFilmSession" TypeName="ModelCinema.FilmFilmSession" StoreEntitySet="FilmSessionSet">
+      <EndProperty Name="Film">
+        <ScalarProperty Name="FilmID" ColumnName="Film_FilmID" />
+      </EndProperty>
+      <EndProperty Name="FilmSession">
+        <ScalarProperty Name="FilmSessionID" ColumnName="FilmSessionID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FilmSessionCinemaHall" TypeName="ModelCinema.FilmSessionCinemaHall" StoreEntitySet="FilmSessionSet">
+      <EndProperty Name="CinemaHall">
+        <ScalarProperty Name="CinemaHallID" ColumnName="CinemaHall_CinemaHallID" />
+      </EndProperty>
+      <EndProperty Name="FilmSession">
+        <ScalarProperty Name="FilmSessionID" ColumnName="FilmSessionID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SeatTicketSeat" TypeName="ModelCinema.SeatTicketSeat" StoreEntitySet="SeatTicketSet">
+      <EndProperty Name="Seat">
+        <ScalarProperty Name="SeatID" ColumnName="Seat_SeatID" />
+      </EndProperty>
+      <EndProperty Name="SeatTicket">
+        <ScalarProperty Name="SeatTicketID" ColumnName="SeatTicketID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SeatTicketFilmSession" TypeName="ModelCinema.SeatTicketFilmSession" StoreEntitySet="SeatTicketSet">
+      <EndProperty Name="FilmSession">
+        <ScalarProperty Name="FilmSessionID" ColumnName="FilmSession_FilmSessionID" />
+      </EndProperty>
+      <EndProperty Name="SeatTicket">
+        <ScalarProperty Name="SeatTicketID" ColumnName="SeatTicketID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

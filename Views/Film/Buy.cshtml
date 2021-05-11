@@ -1,0 +1,157 @@
+﻿@model ASPcinema.Models.BuyPageModel
+
+<div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-10 col-sm-6" id="FilmTitle">
+                @Html.ActionLink(Model.Film.Title.Split(',').First(),
+         "Details",
+         new
+         {
+             @id = Model.Film.FilmID
+         })
+            </div>
+            <div class="col-lg-10 col-sm-6" id="FilmCinemaHallInfo">
+                <text>@Html.DisplayFor(model => model.FilmSession.CinemaHall.Title), </text>
+                <text>@Html.DisplayFor(model => model.FilmSession.SessionDateTime)</text><br />
+
+            </div>
+
+            <div class="col-lg-10 col-sm-6" id="sessionButtons">
+                @foreach (var item in Model.Film.FilmSession.Distinct().OrderBy(d => d.SessionDateTime))
+                {
+                    if (item.CinemaHall.CinemaHallID == Model.FilmSession.CinemaHall.CinemaHallID &
+                        item.SessionDateTime == Model.FilmSession.SessionDateTime)
+                    {
+                        <div class="btnBuyActive">
+                            <a href="/Film/Buy?filmID=@Model.Film.FilmID&sessionID=@item.FilmSessionID">
+                                <span class="sessionTime">@item.SessionDateTime.TimeOfDay.ToString().Substring(0, 5)</span>
+                                <span class="price">@item.SesstionTickets.ElementAt(0).Price ₽</span>
+                                <span class="hall">@item.CinemaHall.Title</span>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="btnBuy">
+                            <a href="/Film/Buy?filmID=@Model.Film.FilmID&sessionID=@item.FilmSessionID">
+                                <span class="sessionTime">@item.SessionDateTime.TimeOfDay.ToString().Substring(0, 5)</span>
+                                <span class="price">@item.SesstionTickets.ElementAt(0).Price ₽</span>
+                                <span class="hall">@item.CinemaHall.Title</span>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+
+
+        </div>
+        <div>
+
+        </div>
+        <div id="selectionAndPurchase" style="display: flex;">
+            <div id="cinemaHallSelection">
+                <div id="explanationBlock" style="align-items: center;">
+                    <div class="btnSeat"></div>
+                    <text style="height: 20px;">ᅠместо свободноᅠ</text>
+                    <div class="btnSeatOccupied"></div>
+                    <text style="height: 20px;">ᅠместо занятоᅠ</text>
+                    <div class="btnSeat" style="background: mediumvioletred;"></div>
+                    <text style="height: 20px;">ᅠваш выборᅠ</text>
+                </div>
+                <div id="cinemaScreen">
+                    <text>Экран</text>
+                </div>
+                <div class="s" id="seatButtons">
+                    @foreach (var item in Model.Tickets)
+                    {
+                        if (item.Seat.SeatTicket.Where(t => t.FilmSession.FilmSessionID == 
+                        Model.FilmSession.FilmSessionID).FirstOrDefault().Bought == false)
+                        {
+                            <div class="btnSeat" >
+                                <a>
+                                    <span class="btnSeat_id" onclick="submitButtonStyle(this)" 
+                                    style="min-height: 30px; min-width: 30px; display: flex; 
+                                    justify-content: center; align-items: center; border-radius: 5px;">@item.Seat.SeatNumber</span>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btnSeatOccupied">
+                                <a href="">
+                                    <span class="btnSeat_id">@item.Seat.SeatNumber</span>
+                                </a>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="TicketsCalculationAndPurchase"
+        style="font-size: 20px; display: flex; margin-top: 15px;
+        margin-left: 5px; margin-right: 5px; width: 430px;">
+
+            <text id="selectedSeatsText" style="white-space: nowrap;">Выбранные места:</text>
+            @using (Html.BeginForm("Purchased", "Film", FormMethod.Post, new { style = " display: flex; margin-left: 5px; margin-right: 5px;" }))
+            {
+                @Html.HiddenFor(model => model.Film.FilmID);
+                @Html.HiddenFor(model => model.FilmSession.FilmSessionID);
+                @Html.TextAreaFor(model => model.SelectedSeats, new { id = "selectedSeats", style = "border: transparent; width:100px; resize: none; height: 100px; font-size: 18px;" })
+                
+                <input type="submit" value="Купить за 0₽" id="buttonBuyTickets" disabled="disabled" style="width: 150px; font-size: 16px; height: 40px;"/>
+        
+                
+            }
+            <text id="price"></text>
+
+        </div>
+
+            <!--<div id="explanationBlock" style="align-items: center;">
+    <div class="btnSeat"></div>
+    <text>ᅠместо свободноᅠ</text>
+    <div class="btnSeatOccupied"></div>
+    <text>ᅠместо занятоᅠ</text>
+    <div class="btnSeat" style="background: mediumvioletred;"></div>
+    <text>ᅠваш выборᅠ</text>
+    </div>-->
+        
+            <script>
+                let exactPrice = 0;
+
+                function submitButtonStyle(_this) {
+
+                    if (document.getElementById('selectedSeats').innerHTML == "") {
+                        const btn = document.getElementById('buttonBuyTickets');
+                        btn.disabled = false;
+
+                    }
+                    if (_this.style.background == "mediumvioletred") {
+                        _this.style.background = "#0079b4";
+                        document.getElementById('selectedSeats').value = document.getElementById('selectedSeats').value.replace(_this.innerHTML, '');
+                        document.getElementById('selectedSeats').value = document.getElementById('selectedSeats').value.replace(' ', '');
+
+                        const btn = document.getElementById('buttonBuyTickets');
+                        exactPrice = exactPrice - 200;
+                        btn.value = "Купить за " + exactPrice + "₽";
+
+                        if (document.getElementById('selectedSeats').value == "") {
+                            const btn = document.getElementById('buttonBuyTickets');
+                            btn.disabled = true;
+                        }
+
+                    }
+                    else {
+                        _this.style.background = "mediumvioletred";
+                        document.getElementById('selectedSeats').value += " " + _this.innerHTML;
+                        const btn = document.getElementById('buttonBuyTickets');
+                        btn.disabled = false;
+                        exactPrice = exactPrice + 200;
+                        btn.value = "Купить за " + exactPrice + "₽";
+                        
+                    }
+                }
+            </script>
+        </div>
+</div>

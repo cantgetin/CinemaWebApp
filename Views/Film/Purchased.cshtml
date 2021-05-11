@@ -1,0 +1,77 @@
+﻿@model ASPcinema.Models.PurchaseViewModel
+
+    <div>
+        <div class="panel-body">
+            <div class="row">
+                <div>
+                    <div id="FilmTitleAndEditBtn">
+                        <div id="FilmTitle">
+                            Поздравляем! Вы купили билеты на фильм  "@Html.DisplayFor(model => model.Film.Title)"
+                        </div>
+                    </div>
+                    <div style="color: grey; font-size: 16px;">
+                        <text> @Model.FilmSession.CinemaHall.Title,</text>
+                        <text>@Model.FilmSession.SessionDateTime,</text>
+                        @if (Model.SelectedSeats.Count == 1)
+                        {
+                            <span>место</span>
+                        }
+                        else
+                        {
+                            <span>места</span>
+                        }
+                        @foreach (var item in Model.SelectedSeats)
+                        {
+                            <span>@item.SeatNumber</span>
+                        }
+                    </div>
+                    <div style="font-size: 16px; margin-top: 10px;">
+                        Вот ваши цифровые билеты:
+                    </div>
+
+                    @foreach (var item in Model.SelectedSeats)
+                    {
+                        <div id="lol" style="border: 2px solid; width: 360px; margin-top: 20px; display: flex;">
+                            <div style=" width:320px; padding: 10px;
+background: linear-gradient(90deg, rgba(51,157,255,1) 0%, rgba(249,249,249,1) 100%);">
+                                <div>
+                                    <text style="font-size: 22px;">@Model.Film.Title</text>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <text>Номер Билета</text><br /><text style="font-size: 18px;">174 412 @item.SeatID</text>
+                                    
+                                </div>
+
+                                <div style="margin-top: 30px;">
+                                    <text>Дата: @DateTime.Now.ToString("yyyy.MM.dd")</text>
+                                </div>
+                                <div>
+                                    <text>Сеанс: @Model.FilmSession.SessionDateTime.ToString("HH:mm")</text>
+                                </div>
+                                <div>
+                                    <text>
+                                        Зал №@Model.FilmSession.CinemaHall.CinemaHallID,
+                                        Ряд @item.RowNumber,
+                                        Место @item.SeatNumber
+                                    </text>
+                                </div>
+
+                            </div>
+                            <div style="background-color: white; width: 50px; padding: 5px; border-left: dotted 1px;">
+                                <img id="qrCodeImg" src="~/Content/qrcode.png" style="height: 200px; width:40px;"/>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+                
+

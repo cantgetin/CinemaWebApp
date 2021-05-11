@@ -1,0 +1,91 @@
+﻿@model ASPcinema.Models.DetailsPageModel
+
+<div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-2 col-sm-6">
+                <img src="~/Content/@Html.DisplayFor(model => model.Film.ImagePath)" width="150" />
+            </div>
+            <div class="col-lg-10 col-sm-6" id="FilmTitleAndEditBtn">
+                <div id="FilmTitle">
+                    @Html.DisplayFor(model => model.Film.Title)
+                </div>
+                <div id="FilmEditBtn">
+                    @if (User.IsInRole("admin"))
+                    {
+                        using (Html.BeginForm("Edit", "Film",
+                            new
+                            {
+                                @filmId = Model.Film.FilmID,
+                            }))
+                        {
+                            <div class="col-lg-10 col-sm-6">
+                                <button type="submit" class="btn btn-warning pull-right">
+                                    Изменить фильм
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-lg-10 col-sm-6" id="DetailsDescription">
+                <text>
+                    @if (Model.Film.Description == "")
+                    {
+                        <text>Нет подробного описания.</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.Film.Description);
+                    }
+
+                </text>
+            </div>
+            <div class="col-lg-10 col-sm-6" id="sessionsToday">
+                <text>Сеансы на сегодня, @DateTime.UtcNow.ToString("dd.MM.yyyy")</text>
+            </div>
+            <div class="col-lg-10 col-sm-6" id="sessionButtons">
+                @foreach (var item in Model.FilmSessions.Distinct()
+                            .OrderBy(d => d.SessionDateTime))
+                {
+                    <div class="btnBuy">
+                        <a href="/Film/Buy?filmID=@Model.Film.FilmID&sessionID=@item.FilmSessionID">
+                            <span class="sessionTime">@item.SessionDateTime.TimeOfDay.ToString().Substring(0, 5)</span>
+                            <span class="price">@item.SesstionTickets.ElementAt(0).Price ₽</span>
+                            <span class="hall">@item.CinemaHall.Title</span>
+                        </a>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-10 col-sm-6" id="DetailsDescription">
+            <div class="info-group clear">
+                <div class="title1"><span>Страна:</span></div>
+                <div class="value"><span>@Html.DisplayFor(model => model.Film.Country)</span></div>
+            </div>
+            <div class="info-group clear">
+                <div class="title1"><span>Режиссер:</span></div>
+                <div class="value"><span>@Html.DisplayFor(model => model.Film.Producer) </span></div>
+            </div>
+            <div class="info-group clear">
+                <div class="title1"><span>Длительность:</span></div>
+                <div class="value"><span>@Html.DisplayFor(model => model.Film.TimeLength) </span></div>
+            </div>
+            <div class="info-group clear">
+                <div class="title1"><span>В главных ролях:</span></div>
+                <div class="value"><span>@Html.DisplayFor(model => model.Film.Actors) </span></div>
+            </div>
+            <div class="info-group clear">
+                <div class="title1"><span>Жанр:</span></div>
+                <div class="value"><span>@Html.DisplayFor(model => model.Film.MoreGenres)</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

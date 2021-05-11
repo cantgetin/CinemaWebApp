@@ -1,0 +1,388 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 1000px;
+}
+
+#FilmTitle {
+    font-size: 24px;
+}
+
+#DetailsDescription {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+img {
+    border: 1px solid #B4B4B4;
+    border-radius: 10px;
+}
+
+.title1 {
+    font-weight: 700;
+    margin-right: 30px;
+}
+
+.info-group {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#filmList {
+    display: flex;
+    width: 50px;
+}
+
+#sessionButtons {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.btnBuy {
+    padding: 2px;
+    width: 80px;
+    height: 100%;
+    background-color: #101010;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.btnBuy a {
+    color: #9d9d9d;
+    font-size: 14px;
+    text-align: center;
+}
+
+.btnBuy a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.btnBuy span {
+    margin: 0px;
+    display: block;
+    text-align: center;
+    align-items: center;
+}
+
+.btnBuyActive {
+    padding: 2px;
+    width: 80px;
+    height: 100%;
+    background-color: mediumvioletred;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.btnBuyActive a {
+    color: #9d9d9d;
+    font-size: 14px;
+    text-align: center;
+}
+
+.btnBuyActive a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.btnBuyActive span {
+    margin: 0px;
+    display: block;
+    text-align: center;
+    align-items: center;
+}
+
+
+#sessionsToday {
+    font-size: 15px;
+    color: gray;
+}
+
+.panel-body {
+    margin-top: 20px;
+}
+
+.hall {
+    font-size: 12px;
+    color: hotpink;
+}
+
+#seatButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    justify-items: center;
+    width: 30%;
+    margin-top: 20px;
+}
+
+.btnSeat {
+    background-color: #0079b4;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+}
+
+.btnSeat a {
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.btnSeat a:hover {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.btnSeatOccupied {
+    background-color: #1a1a1a;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+}
+
+.btnSeatOccupied a {
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    cursor: default;
+}
+
+.btnSeatOccupied a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+
+.btnSeat_id {
+    vertical-align: sub;
+}
+
+
+#filmThings {
+    display: block;
+}
+
+#filmThings text{
+    font-size: 16px;
+    color: black;
+}
+
+#filmThingsItem {
+    margin-right: 20px;
+    font-size: 15px;
+}
+
+
+.login-trigger {
+    /*font-weight: bold;
+    color: #fff;
+    background: linear-gradient(to bottom right, #B05574, #F87E7B);
+    padding: 15px 30px;
+    border-radius: 30px;
+    position: relative;
+    top: 50%;*/
+    text-decoration: none;
+    color: #9d9d9d;
+}
+
+.login-trigger:hover {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+/*Modal*/
+h4 {
+    font-weight: bold;
+    color: #fff;
+}
+
+.close {
+    color: #fff;
+    transform: scale(1.2)
+}
+
+.modal-content {
+    font-weight: bold;
+    background: #333333;
+    width: 300px;
+    margin: auto;
+}
+
+.form-control {
+    margin: 1em 0;
+}
+
+.form-control:hover, .form-control:focus {
+    box-shadow: none;
+    border-color: #fff;
+}
+
+.username1, .password {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 2px solid #eee;
+    padding-left: 0;
+    font-weight: normal;
+    background: transparent;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: gray;
+}
+
+
+.form-control {
+    color: white;
+}
+
+
+.login {
+    padding: 6px 20px;
+    border-radius: 20px;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    font-weight: bold;
+    transition: all .5s;
+    margin-top: 1em;
+}
+
+
+.login:hover {
+    background: gray;
+    color: #fff;
+}
+
+#nav-login {
+    height: 50px;
+}
+
+#nav-login a {
+    vertical-align: sub;
+    text-align: center;
+}
+
+.test123 {
+    margin-top: 12px;
+}
+
+#FilmTitle a {
+    color: black;
+}
+
+#FilmTitle a:hover {
+    color: black;
+}
+
+#cinemaScreen {
+    background: black;
+    text-align: center;
+    width: 415px;
+}
+
+#cinemaScreen text {
+    color: white;
+}
+
+#cinemaHallSelection {
+    margin-top: 0px;
+    background: #B8B8B8;
+    width: 440px;
+    padding: 10px;
+    border: solid 2px;
+    border-radius: 10px;
+    border-color: black;
+}
+
+#FilmCinemaHallInfo {
+    font-size: 15px;
+}
+
+#FilmCinemaHallInfo text {
+    color: gray;
+}
+
+#FilmTitleAndEditBtn {
+    display: flex;
+}
+
+#FilmEditBtn {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+#EditTextBoxDescription textarea {
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+#EditTextBoxTitle textarea{
+    width: 340px;
+    height: 50px;
+    resize: none;
+}
+
+#EditTextBoxRoles textarea {
+    width: 500px;
+    height: 50px;
+    resize: none;
+}
+
+#FilmEditBtnSuccess {
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+#explanationBlock {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+#selectedSeats {
+    pointer-events: none;
+    cursor: default;
+}
+
+#qrCodeImg {
+    border: 0px solid;
+    border-radius: 0px;
+}

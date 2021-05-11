@@ -1,0 +1,17 @@
+﻿@model ASPcinema.Models.SessionsPageModel
+
+
+<h2>@ViewBag.Title</h2>
+@section Scripts
+{
+    <link href="~/Content/style1.css" rel="stylesheet" />
+}
+
+@foreach (var item in Model.Films)
+{
+    <a href="Details/@item.FilmID"><img src="~/Content/@item.ImagePath" width="150" onclick="" /></a>
+
+}
+
+
+

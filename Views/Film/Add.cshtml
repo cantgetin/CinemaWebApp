@@ -1,0 +1,83 @@
+﻿@model ASPcinema.Models.AddPageModel
+
+<div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Added", "Film", FormMethod.Post, new { style = "margin-top: 5px;" }))
+        {
+            
+            <div class="row">
+                <!--<div class="col-lg-2 col-sm-6">
+                    <img src="~/Content/" width="150" />
+                    <button type="submit" class="btn btn-danger pull-right" style="margin-top: 10px;">
+                        Изменить постер
+                    </button>
+                </div>-->
+                <div class="col-lg-2 col-sm-6">
+                    <div class="col-md-10">
+                        <img id="ShowImage" width="150" src="~/Content/sample.jpg" style="border: solid 1px;"/>
+                        <input id="FileUpload" type="file" accept="image/jpeg" style="margin-top: 10px;" />
+                    </div>
+                </div>
+
+
+                <div class="col-lg-10 col-sm-6">
+                    <div class="title1"><span>Название фильма:</span></div>
+                    <div id="EditTextBoxTitle">@Html.TextAreaFor(m => m.Film.Title)</div>
+                </div>
+                <div class="col-lg-10 col-sm-6" id="DetailsDescription">
+                    <div class="title1"><span>Описание:</span></div>
+                    <div id="EditTextBoxDescription">@Html.TextAreaFor(m => m.Film.Description)</div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-sm-6" id="DetailsDescription">
+                <div class="info-group clear">
+                    <div class="title1"><span>Страна:</span></div>
+                    <div id="EditTextBox">@Html.TextBoxFor(m => m.Film.Country)</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>Режиссер:</span></div>
+                    <div id="EditTextBox">@Html.TextBoxFor(m => m.Film.Producer)</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>Длительность:</span></div>
+                    <div id="EditTextBox">@Html.TextBoxFor(m => m.Film.TimeLength)</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>В главных ролях:</span></div>
+                    <div id="EditTextBoxRoles">@Html.TextAreaFor(m => m.Film.Actors)</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>Основной жанр:</span></div>
+                    <div id="dropDownBox">@Html.DropDownListFor(m => m.SelectedGenre, new SelectList(Model.Genres.Select(c => c.Title).ToList()))</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>Все жанры:</span></div>
+                    <div id="EditTextBox">@Html.TextBoxFor(m => m.Film.MoreGenres)</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>Ссылка на kinopoisk:</span></div>
+                    <div id="EditTextBox">@Html.TextBoxFor(m => m.Film.KinopoiskLink)</div>
+                </div>
+                <div class="info-group clear">
+                    <div class="title1"><span>Возрастной рейтинг:</span></div>
+                    <div id="dropDownBox">@Html.DropDownListFor(m => m.SelectedAgeRating, new SelectList(Model.AgeRatings.Select(c => c.Title).ToList()))</div>
+                </div>
+
+                <div class="info-group clear">
+
+
+
+                    <button type="submit" class="btn btn-success pull-right">
+                        Сохранить изменения
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+
+
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
