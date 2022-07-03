@@ -1,0 +1,41 @@
+﻿@model ASPcinema.Models.HallsModel
+
+@{
+    ViewBag.Title = "Halls";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Залы</h1>
+
+
+@foreach (var item in Model.Halls)
+{
+    <div style="display: inline-block; margin-top: 50px;">
+        <div>
+        <img src="~/Content/@item.ImagePath" width="500" />
+        </div>
+        <div>
+            <h2>@item.Title</h2>
+            <div style="display: inline-block;">
+                @foreach (var item1 in item.FilmSession.Distinct().OrderBy(d => d.SessionDateTime))
+                {
+                    <div>
+                        <span>@item1.Film.Title</span>
+                        <span>@item1.SessionDateTime</span>
+                    </div>
+                }
+            </div>
+            <h2>3D: @item.Is3D</h2>
+            <h2>VIP: @item.IsVIP</h2>
+            <h2>Seats: @item.NumberOfSeats</h2>
+            <div>
+
+            </div>
+
+        </div>
+    </div>
+}
